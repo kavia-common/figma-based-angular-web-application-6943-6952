@@ -53,10 +53,15 @@ export class LoginComponent {
     console.log('Login submitted', this.form.getRawValue());
   }
 
+  // PUBLIC_INTERFACE
   get emailCtrl() {
+    /** Getter for the email FormControl. */
     return this.form.controls.email;
   }
+
+  // PUBLIC_INTERFACE
   get passwordCtrl() {
+    /** Getter for the password FormControl. */
     return this.form.controls.password;
   }
 }
