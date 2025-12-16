@@ -1,0 +1,144 @@
+<!--
+  Login page based on 'Login - 8' Figma screen.
+  Accessibility:
+  - Proper labels and for/id associations
+  - aria-required on required fields
+  - Button labels and roles are descriptive
+  - Semantic elements: main, aside, header, section, footer
+-->
+<div class="page" role="document" aria-label="Login Page">
+  <!-- Left panel -->
+  <aside class="left-panel" aria-labelledby="welcomeHeading">
+    <div class="left-content">
+      <img
+        class="logo"
+        src="/assets/figmaimages/figma_image_1_2331_305_2492.png"
+        alt="Company Logo"
+        width="107"
+        height="40"
+      />
+      <h1 id="welcomeHeading" class="headline">
+        Welcome to your STB Management Portal
+      </h1>
+      <p class="subcopy">
+        Manage and monitor millions of CPEs intelligently to improve operational efficiency
+        and enhance customer experience (CX)
+      </p>
+    </div>
+
+    <footer class="tc-footer" aria-label="Version and copyright">
+      <div class="tc-left">
+        <span class="version">Version: v2.0.4</span>
+      </div>
+      <div class="tc-sep" role="separator" aria-hidden="true"></div>
+      <div class="tc-right">
+        <img
+          class="copyright-icon"
+          src="/assets/figmaimages/figma_image_1_2334_330_10919_106_10325_514_58508.svg"
+          alt=""
+          width="12"
+          height="12"
+        />
+        <span class="copyright-text">
+          2025 - TATA ELXSI All Rights Reserved
+        </span>
+      </div>
+    </footer>
+  </aside>
+
+  <!-- Right panel -->
+  <main class="right-panel" aria-labelledby="loginTitle">
+    <div class="cone-bg" aria-hidden="true">
+      <div class="cone-image"></div>
+      <div class="cone-overlay"></div>
+    </div>
+
+    <section class="login-card" aria-label="Login form card">
+      <h2 id="loginTitle" class="login-title">Login</h2>
+
+      <form class="inputs" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Email field -->
+        <div class="field">
+          <label class="field-label" for="emailInput">
+            Email <span class="required" aria-hidden="true">*</span>
+          </label>
+          <div class="input-shell" [attr.aria-invalid]="emailCtrl.invalid && emailCtrl.touched">
+            <input
+              id="emailInput"
+              formControlName="email"
+              name="email"
+              type="email"
+              class="input"
+              placeholder="eg. johndoe@company.com"
+              autocomplete="username"
+              required
+              aria-required="true"
+              [attr.aria-describedby]="emailCtrl.invalid && emailCtrl.touched ? 'emailError' : null"
+            />
+          </div>
+          <div
+            *ngIf="emailCtrl.invalid && emailCtrl.touched"
+            id="emailError"
+            class="error-text"
+            role="alert"
+          >
+            Please enter a valid email address.
+          </div>
+        </div>
+
+        <!-- Password field -->
+        <div class="field">
+          <label class="field-label" for="passwordInput">
+            Password <span class="required" aria-hidden="true">*</span>
+          </label>
+          <div class="input-shell password-shell" [attr.aria-invalid]="passwordCtrl.invalid && passwordCtrl.touched">
+            <input
+              id="passwordInput"
+              formControlName="password"
+              name="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              class="input"
+              placeholder="Password"
+              autocomplete="current-password"
+              required
+              aria-required="true"
+              [attr.aria-describedby]="passwordCtrl.invalid && passwordCtrl.touched ? 'passwordError' : null"
+            />
+            <button
+              type="button"
+              class="icon-btn"
+              (click)="onTogglePassword()"
+              [attr.aria-pressed]="showPassword()"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+              aria-controls="passwordInput"
+            >
+              <img
+                src="/assets/figmaimages/figma_image_1_2345_176_9827_106_10853_514_59877.svg"
+                alt=""
+                width="15"
+                height="15"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+          <div
+            *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
+            id="passwordError"
+            class="error-text"
+            role="alert"
+          >
+            Password must be at least 6 characters.
+          </div>
+        </div>
+
+        <!-- Forgot password -->
+        <div class="forgot-row">
+          <button type="button" class="btn-tertiary" (click)="onForgotPassword()">Forgot Password?</button>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">Login</button>
+      </form>
+    </section>
+  </main>
+</div>
